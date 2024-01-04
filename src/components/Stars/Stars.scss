@@ -1,0 +1,54 @@
+$animation-duration: 30s;
+
+@mixin dots($count: 1, $color, $pos: -530) {
+	$text-shadow: ();
+	@for $i from 0 through $count {
+		$text-shadow: $text-shadow,
+			(-100) + px ($pos) + px 50px hsla($color, 100%, 50%, 0.4);
+	}
+	text-shadow: $text-shadow;
+}
+
+#stars {
+	width: 100vw;
+	height: 100vh;
+	display: block;
+	font-size: 532px;
+	color: transparent;
+}
+#stars::before,
+#stars::after {
+	position: fixed;
+	top: 40%;
+	left: 40%;
+	width: 1px;
+	height: 1px;
+	content: '.';
+	mix-blend-mode: screen;
+	animation: move $animation-duration ease-in-out 0s infinite alternate;
+}
+
+#stars::before {
+	@include dots(0, 20, -540);
+	animation-duration: $animation-duration;
+	animation-delay: -40s;
+}
+
+#stars::after {
+	@include dots(0, 130);
+	animation-duration: calc($animation-duration + 10s);
+	animation-delay: -30s;
+}
+
+@keyframes move {
+	from {
+		transform: rotate(40deg) scale(6) translatey(10px);
+		opacity: 1;
+		// transform: scale(5);
+	}
+	to {
+		transform: rotate(-190deg) scale(8) translatey(10px);
+		opacity: 0.7;
+		// transform: scale(5);
+	}
+}
