@@ -1,7 +1,7 @@
 import React from 'react';
 
 const useAnimationFrame = ({
-	nextAnimationFrameHandler,
+	nextAnimationFrameHandler = () => {},
 	// we still want to have "infinite" animations in some cases
 	duration = Number.POSITIVE_INFINITY,
 	shouldAnimate = true,

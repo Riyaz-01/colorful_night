@@ -11,15 +11,15 @@ import Webcam from 'react-webcam';
 // utils
 import useAnimationFrame from './utils/useRequestAnimationFrame';
 import detectGesture from './utils/detectGesture';
-
-// assets
+import drawhands from './utils/drawHands.js';
 
 // components
 import Stars from './components/Stars/Stars.jsx';
 import Loader from './components/Loader/Loader.jsx';
+import Intro from './components/Intro/Intro.jsx';
 
 function App() {
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	const camRef = useRef(null);
 	const canvasRef = useRef(null);
@@ -65,11 +65,9 @@ function App() {
 
 	const runHandPose = async () => {
 		setLoading(true);
-
 		console.log('handpose model is loading...');
 		const net = await handPoseDetection.load();
 		console.log('handpose model loaded');
-
 		setLoading(false);
 
 		setNet(net);
@@ -87,14 +85,13 @@ function App() {
 			) : (
 				<div id='main'>
 					<Stars />
+					<Intro />
 					<Webcam
 						mirrored={true}
 						ref={camRef}
 						style={{ width: 0, height: 0 }}
 					/>
 					<canvas id='hands-container' ref={canvasRef} />
-
-					<div id='intro'></div>
 				</div>
 			)}
 		</div>

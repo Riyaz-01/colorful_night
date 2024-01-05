@@ -1,0 +1,143 @@
+$animation-duration: 1s;
+.btn-cont {
+	text-align: center;
+
+	.btn {
+		-webkit-font-smoothing: antialiased;
+		background-color: transparent;
+		padding: 10px 28px;
+		color: white;
+		outline: none;
+		letter-spacing: 1px;
+		font-weight: 300;
+		border-radius: 50px;
+		font-size: 16px;
+		border: 1px solid white;
+		cursor: pointer;
+
+		&:hover {
+			border: none;
+
+			.line-1 {
+				animation: move1 $animation-duration infinite ease;
+			}
+
+			.line-2 {
+				animation: move2 $animation-duration infinite ease;
+			}
+
+			.line-3 {
+				animation: move3 $animation-duration infinite ease;
+			}
+
+			.line-4 {
+				animation: move4 $animation-duration infinite ease;
+			}
+		}
+	}
+
+	.line-1 {
+		content: '';
+		display: block;
+		position: absolute;
+		width: 1px;
+		background-color: cyan;
+		left: 0;
+		bottom: 0;
+	}
+	.line-2 {
+		content: '';
+		display: block;
+		position: absolute;
+		height: 1px;
+		background-color: magenta;
+		left: 0;
+		top: 0;
+	}
+	.line-3 {
+		content: '';
+		display: block;
+		position: absolute;
+		width: 1px;
+		background-color: cyan;
+		right: 0;
+		top: 0;
+	}
+	.line-4 {
+		content: '';
+		display: block;
+		position: absolute;
+		height: 1px;
+		background-color: magenta;
+		right: 0;
+		bottom: 0;
+	}
+}
+
+@keyframes move1 {
+	0% {
+		height: 100%;
+		bottom: 0;
+	}
+	54% {
+		height: 0;
+		bottom: 100%;
+	}
+	55% {
+		height: 0;
+		bottom: 0;
+	}
+	100% {
+		height: 100%;
+		bottom: 0;
+	}
+}
+
+@keyframes move2 {
+	0% {
+		width: 0;
+		left: 0;
+	}
+	50% {
+		width: 100%;
+		left: 0;
+	}
+	100% {
+		width: 0;
+		left: 100%;
+	}
+}
+
+@keyframes move3 {
+	0% {
+		height: 100%;
+		top: 0;
+	}
+	54% {
+		height: 0;
+		top: 100%;
+	}
+	55% {
+		height: 0;
+		top: 0;
+	}
+	100% {
+		height: 100%;
+		top: 0;
+	}
+}
+
+@keyframes move4 {
+	0% {
+		width: 0;
+		right: 0;
+	}
+	55% {
+		width: 100%;
+		right: 0;
+	}
+	100% {
+		width: 0;
+		right: 100%;
+	}
+}

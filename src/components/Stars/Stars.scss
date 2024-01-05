@@ -18,18 +18,17 @@ $animation-duration: 30s;
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	height: 8px;
-	width: 8px;
+	height: 10px;
+	width: 10px;
 	border-radius: 50%;
 
 	box-shadow: -42vw -4vh 0px 0px #fff, 25vw -41vh 0px 0px #fff,
-		-20vw 49vh 0px 1px #fff, 5vw 40vh 1px 1px #fff, 29vw 19vh 1px 0px #fff,
-		-44vw -13vh 0px 0px #fff, 46vw 41vh 0px 1px #fff, -3vw -45vh 0px 1px #fff,
-		47vw 35vh 1px 0px #fff, 12vw -8vh 1px 0px #fff, -34vw 48vh 1px 1px #fff,
-		32vw 26vh 1px 1px #fff, 32vw -41vh 1px 1px #fff, 0vw 37vh 1px 1px #fff,
-		34vw -26vh 1px 0px #fff, -14vw -49vh 1px 0px #fff, -12vw 45vh 0px 1px #fff,
-		-44vw -33vh 0px 1px #fff, -13vw 41vh 0px 0px #fff, -36vw -11vh 0px 1px #fff,
-		-23vw -24vh 1px 0px #fff;
+		-20vw 49vh 0px 1px #fff, 5vw 40vh 1px 1px #fff, 27vw 19vh 1px 0px #fff,
+		-44vw -13vh 0px 0px #fff, 46vw 41vh 0px 1px #fff, 48vw 33vh 1px 0px #fff,
+		12vw -6vh 1px 0px #fff, -34vw 48vh 1px 1px #fff, 32vw 26vh 1px 1px #fff,
+		38vw -45vh 1px 1px #fff, 0vw 37vh 1px 1px #fff, 34vw -26vh 1px 0px #fff,
+		-31vw -48vh 1px 0px #fff, -12vw 29vh 0px 1px #fff, -44vw -33vh 0px 1px #fff,
+		-26vw 26vh 0px 0px #fff, 32vw 6vh 0px 1px #fff, -21vw -23vh 1px 0px #fff;
 }
 #stars::before,
 #stars::after {
