@@ -11,17 +11,16 @@ import Webcam from 'react-webcam';
 // utils
 import useAnimationFrame from './utils/useRequestAnimationFrame';
 import detectGesture from './utils/detectGesture';
-import selectLoadingText from './utils/selectLoadingText';
 
 // assets
-import loader from './assets/loader.svg';
 
 // components
 import Stars from './components/Stars/Stars.jsx';
+import Loader from './components/Loader/Loader.jsx';
 
 function App() {
-	const [loading, setLoading] = useState(false);
-	const [loadingText, setLoadingText] = useState('Loading .');
+	const [loading, setLoading] = useState(true);
+
 	const camRef = useRef(null);
 	const canvasRef = useRef(null);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
@@ -67,15 +66,10 @@ function App() {
 	const runHandPose = async () => {
 		setLoading(true);
 
-		const loadingTimer = setInterval(() => {
-			setLoadingText((prev) => selectLoadingText(prev));
-		}, 500);
-
 		console.log('handpose model is loading...');
 		const net = await handPoseDetection.load();
 		console.log('handpose model loaded');
 
-		clearInterval(loadingTimer);
 		setLoading(false);
 
 		setNet(net);
@@ -89,10 +83,7 @@ function App() {
 	return (
 		<div id='app'>
 			{loading ? (
-				<div className='loading-container'>
-					<img src={loader} alt='loading...' />
-					<p>{loadingText} </p>
-				</div>
+				<Loader />
 			) : (
 				<div id='main'>
 					<Stars />

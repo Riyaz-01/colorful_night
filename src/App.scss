@@ -3,45 +3,6 @@
 	height: 100vh;
 	background: radial-gradient(transparent, rgba(0, 0, 0, 0.709)) #212445;
 
-	.loading-container {
-		position: absolute;
-		height: 100vh;
-		width: 100vw;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		font-family: gridular;
-
-		color: white;
-
-		p {
-			width: 100px;
-		}
-
-		> img {
-			width: 80px;
-		}
-	}
-
-	#stars {
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		height: 8px;
-		width: 8px;
-		border-radius: 50%;
-
-		box-shadow: -42vw -4vh 0px 0px #fff, 25vw -41vh 0px 0px #fff,
-			-20vw 49vh 0px 1px #fff, 5vw 40vh 1px 1px #fff, 29vw 19vh 1px 0px #fff,
-			-44vw -13vh 0px 0px #fff, 46vw 41vh 0px 1px #fff, -3vw -45vh 0px 1px #fff,
-			47vw 35vh 1px 0px #fff, 12vw -8vh 1px 0px #fff, -34vw 48vh 1px 1px #fff,
-			32vw 26vh 1px 1px #fff, 32vw -41vh 1px 1px #fff, 0vw 37vh 1px 1px #fff,
-			34vw -26vh 1px 0px #fff, -14vw -49vh 1px 0px #fff, -12vw 45vh 0px 1px #fff,
-			-44vw -33vh 0px 1px #fff, -13vw 41vh 0px 0px #fff,
-			-36vw -11vh 0px 1px #fff, -23vw -24vh 1px 0px #fff;
-	}
-
 	#main {
 		height: 100%;
 		width: 100%;
