@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Loader.scss';
 
 // assets
-import loader from '../../assets/loader.svg';
+import loader from '../../assets/images/loader.svg';
 
 // utils
 import selectLoadingText from '../../utils/selectLoadingText';

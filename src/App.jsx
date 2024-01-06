@@ -25,6 +25,7 @@ function App() {
 	const canvasRef = useRef(null);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [net, setNet] = useState(null);
+	const [showCanvas, setShowCanvas] = useState(false);
 
 	useAnimationFrame({
 		nextAnimationFrameHandler: async () => {
@@ -33,7 +34,7 @@ function App() {
 			drawhands(canvas, hands);
 			detectGesture(hands);
 		},
-		shouldAnimate: shouldAnimate && !loading,
+		shouldAnimate: shouldAnimate && !loading && showCanvas,
 	});
 
 	const settingCanvasAndVideo = () => {
@@ -75,7 +76,7 @@ function App() {
 	};
 
 	useEffect(() => {
-		// runHandPose();
+		runHandPose();
 	}, []);
 
 	return (
@@ -85,13 +86,17 @@ function App() {
 			) : (
 				<div id='main'>
 					<Stars />
-					<Intro />
-					<Webcam
-						mirrored={true}
-						ref={camRef}
-						style={{ width: 0, height: 0 }}
-					/>
-					<canvas id='hands-container' ref={canvasRef} />
+					<Intro setShowCanvas={setShowCanvas} />
+					{showCanvas && (
+						<>
+							<Webcam
+								mirrored={true}
+								ref={camRef}
+								style={{ width: 0, height: 0 }}
+							/>
+							<canvas id='hands-container' ref={canvasRef} />
+						</>
+					)}
 				</div>
 			)}
 		</div>

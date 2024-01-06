@@ -3,16 +3,21 @@ import './Intro.scss';
 
 import tutorialVid from '../../assets/tutorial.mov';
 import Button from '../Button/Button';
+import Sound from '../Sound/Sound';
 
-const Intro = () => {
+const Intro = ({ setShowCanvas = () => {} }) => {
 	const [animationIndex, setAnimationIndex] = useState(null);
 	const [showDesc, setShowDesc] = useState(false);
 	const [showTut, setShowTut] = useState(false);
+	const [isPlaying, setIsPlaying] = useState(false);
 
 	const handleClick1 = () => {
 		setShowDesc(false);
 		setShowTut(true);
+		setIsPlaying(true);
+		setTimeout(() => setShowCanvas(true), 1000);
 	};
+
 	const handleClick2 = () => {
 		setAnimationIndex(2);
 		setTimeout(() => {
@@ -22,7 +27,7 @@ const Intro = () => {
 	};
 
 	const startAnimations = () => {
-		setTimeout(() => setAnimationIndex(0), 1000);
+		setTimeout(() => setAnimationIndex(0), 1500);
 		setTimeout(() => setAnimationIndex(1), 2000);
 		setTimeout(() => setShowDesc(true), 3000);
 	};
@@ -50,7 +55,9 @@ const Intro = () => {
 					<p>
 						Colorful Night is an interactive game based on motion detection.
 					</p>
-					<Button onClick={handleClick1}>Ready to play</Button>
+					<Button onClick={handleClick1} id='intro1'>
+						Ready to play
+					</Button>
 				</div>
 			)}
 			{showTut && (
@@ -64,6 +71,7 @@ const Intro = () => {
 					<video src={tutorialVid} autoPlay={true} loop={true} />
 				</div>
 			)}
+			<Sound isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
 		</>
 	);
 };

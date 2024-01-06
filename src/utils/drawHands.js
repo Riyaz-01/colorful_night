@@ -28,20 +28,14 @@ export const drawhands = (canvas, hands) => {
 	ctx.strokeStyle = 'cyan';
 	ctx.lineCap = 'round';
 
-	ctx.beginPath();
-	ctx.rect(0, 0, 640, 480);
-	ctx.stroke();
+	// ctx.beginPath();
+	// ctx.rect(0, 0, 640, 480);
+	// ctx.stroke();
 
 	if (hands.length == 0) {
-		console.warn('No Hand Detected');
 		return;
 	}
 	hands.forEach((hand) => {
-		if (hand.handInViewConfidence < 0.9) {
-			console.warn('No Hand Detected');
-			return;
-		}
-
 		// drawing joints
 		hand.landmarks.forEach((point) => {
 			ctx.beginPath();

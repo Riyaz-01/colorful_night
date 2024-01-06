@@ -121,15 +121,6 @@ h1:after {
 	animation: fade 0.5s ease-out forwards !important;
 }
 
-@keyframes fade {
-	from {
-		opacity: 100%;
-	}
-	to {
-		opacity: 0%;
-	}
-}
-
 .navbar {
 	margin-top: 50px;
 	height: auto;

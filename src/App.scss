@@ -1,13 +1,28 @@
 #app {
 	width: 100vw;
 	height: 100vh;
-	background: radial-gradient(transparent, rgba(0, 0, 0, 0.709)) #2d3262;
+	background: radial-gradient(transparent, rgba(0, 0, 0, 0.828)) #2d3262;
+	position: relative;
+
+	@keyframes fade {
+		from {
+			opacity: 100%;
+		}
+		to {
+			opacity: 0%;
+		}
+	}
 
 	#main {
 		height: 100vh;
 		width: 100vw;
 
 		#hands-container {
+			position: absolute;
+			right: 50%;
+			bottom: 100px;
+			transform: translateX(50%);
+			pointer-events: none;
 		}
 	}
 }
