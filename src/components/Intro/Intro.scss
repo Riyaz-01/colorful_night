@@ -118,7 +118,7 @@ h1:after {
 }
 
 .fade {
-	animation: fade 0.5s ease-out forwards;
+	animation: fade 0.5s ease-out forwards !important;
 }
 
 @keyframes fade {
@@ -187,5 +187,35 @@ h1:after {
 	}
 	.btn-cont {
 		animation-delay: 0.5s;
+	}
+}
+
+#video-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	height: max-content;
+
+	// height: 100vh;
+	top: 27%;
+	overflow: hidden;
+
+	animation: fade 0.5s reverse;
+
+	video {
+		border-radius: 20px;
+		width: 720px;
+	}
+	.btn-cont {
+		position: absolute;
+		transform: scale(1.1);
+		bottom: 33px;
+		z-index: 2;
+	}
+
+	&.fade-video {
+		animation: appear2 0.5s reverse forwards;
 	}
 }
