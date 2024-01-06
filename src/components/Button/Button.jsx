@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Button.scss';
 
-const Button = ({ children = <></> }) => {
+const Button = ({ children = <></>, onClick = () => {}, ...props }) => {
+	const [animate, setAnimate] = useState(false);
+	const handleClick = () => {
+		setAnimate(true);
+		setTimeout(() => {
+			onClick();
+			setAnimate(false);
+		}, 500);
+	};
 	return (
-		<div className='btn-cont'>
-			<button className='custom-button btn'>
+		<div className='btn-cont' {...props} onClick={handleClick}>
+			<button className={'custom-button btn ' + (animate && 'fade')}>
 				{children}
-				<span class='line-1'></span>
-				<span class='line-2'></span>
-				<span class='line-3'></span>
-				<span class='line-4'></span>
 			</button>
 		</div>
 	);

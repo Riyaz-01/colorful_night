@@ -39,7 +39,7 @@ const Intro = () => {
 					<p>
 						Colorful Night is an interactive game based on motion detection.
 					</p>
-					<Button>Ready to play</Button>
+					<Button onClick={handleClick}>Ready to play</Button>
 				</div>
 			)}
 		</>
