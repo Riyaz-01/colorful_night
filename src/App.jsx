@@ -17,6 +17,7 @@ import drawhands from './utils/drawHands.js';
 import Stars from './components/Stars/Stars.jsx';
 import Loader from './components/Loader/Loader.jsx';
 import Intro from './components/Intro/Intro.jsx';
+import Gameplay from './components/Gameplay/Gameplay.jsx';
 
 function App() {
 	const [loading, setLoading] = useState(false);
@@ -26,11 +27,21 @@ function App() {
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [net, setNet] = useState(null);
 	const [showCanvas, setShowCanvas] = useState(false);
+	const [handVisible, setHandVisible] = useState(false);
+	const [running, setRunning] = useState(false);
+
+	const startGame = () => {
+		setRunning(true);
+	};
 
 	useAnimationFrame({
 		nextAnimationFrameHandler: async () => {
 			const { canvas, video } = settingCanvasAndVideo();
 			const hands = await net.estimateHands(video, true);
+
+			if (hands.length == 0) setHandVisible(false);
+			else setHandVisible(true);
+
 			drawhands(canvas, hands);
 			detectGesture(hands);
 		},
@@ -86,7 +97,7 @@ function App() {
 			) : (
 				<div id='main'>
 					<Stars />
-					<Intro setShowCanvas={setShowCanvas} />
+					<Intro setShowCanvas={setShowCanvas} startGame={startGame} />
 					{showCanvas && (
 						<>
 							<Webcam
@@ -97,6 +108,7 @@ function App() {
 							<canvas id='hands-container' ref={canvasRef} />
 						</>
 					)}
+					{running && <Gameplay handVisible={handVisible} />}
 				</div>
 			)}
 		</div>

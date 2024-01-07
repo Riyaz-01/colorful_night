@@ -5,7 +5,11 @@ import tutorialVid from '../../assets/tutorial.mov';
 import Button from '../Button/Button';
 import Sound from '../Sound/Sound';
 
-const Intro = ({ setShowCanvas = () => {} }) => {
+const Intro = ({
+	setShowCanvas = () => {},
+	startGame = () => {},
+	...props
+}) => {
 	const [animationIndex, setAnimationIndex] = useState(null);
 	const [showDesc, setShowDesc] = useState(false);
 	const [showTut, setShowTut] = useState(false);
@@ -23,6 +27,7 @@ const Intro = ({ setShowCanvas = () => {} }) => {
 		setTimeout(() => {
 			setShowTut(false);
 			setAnimationIndex(1);
+			startGame();
 		}, 500);
 	};
 

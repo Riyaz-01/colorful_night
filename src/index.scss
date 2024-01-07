@@ -1,0 +1,54 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: gridular;
+	src: url(./assets/Gridular-Regular.ttf);
+}
+
+@keyframes fade {
+	from {
+		opacity: 100%;
+	}
+	to {
+		opacity: 0%;
+	}
+}
+@keyframes appear {
+	0% {
+		// max-height: 0%;
+		opacity: 0%;
+		transform: translateY(100px);
+	}
+	100% {
+		// max-height: 100%;
+		opacity: 100%;
+		transform: translateX(0px);
+	}
+}
+@keyframes appear2 {
+	0% {
+		// max-height: 0%;
+		opacity: 0%;
+		transform: translateY(40px);
+	}
+	100% {
+		// max-height: 100%;
+		opacity: 100%;
+		transform: translateX(0px);
+	}
+}
+
+.fade {
+	animation: fade 0.5s ease-out forwards !important;
+}
+
+.appear2 {
+	animation: appear2 0.5s ease-out forwards;
+}
+.appear1 {
+	animation: appear2 0.5s ease-out forwards;
+}

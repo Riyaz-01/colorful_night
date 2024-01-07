@@ -1,0 +1,19 @@
+#instructions {
+	font-family: inter;
+	color: rgba(255, 255, 255, 0.857);
+	position: absolute;
+	top: 200px;
+
+	width: 100vw;
+
+	> p {
+		max-width: 550px;
+		text-align: center;
+		margin: auto;
+		margin-bottom: 40px;
+
+		&.ins1 {
+			font-size: 24px;
+		}
+	}
+}

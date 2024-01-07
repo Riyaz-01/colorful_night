@@ -1,3 +1,43 @@
+@keyframes glitch {
+	2%,
+	64% {
+		transform: translate(2px, 0) skew(0deg);
+	}
+	4%,
+	60% {
+		transform: translate(-2px, 0) skew(0deg);
+	}
+	62% {
+		transform: translate(0, 0) skew(5deg);
+	}
+}
+@keyframes glitchTop {
+	2%,
+	64% {
+		transform: translate(2px, -2px);
+	}
+	4%,
+	60% {
+		transform: translate(-2px, 2px);
+	}
+	62% {
+		transform: translate(13px, -1px) skew(-13deg);
+	}
+}
+@keyframes glitchBotom {
+	2%,
+	64% {
+		transform: translate(-2px, 0);
+	}
+	4%,
+	60% {
+		transform: translate(-2px, 0);
+	}
+	62% {
+		transform: translate(-22px, 5px) skew(21deg);
+	}
+}
+
 .intro-wrapper {
 	position: absolute;
 	width: 100vw;
@@ -23,20 +63,6 @@ h1 {
 	z-index: 2;
 }
 
-@keyframes glitch {
-	2%,
-	64% {
-		transform: translate(2px, 0) skew(0deg);
-	}
-	4%,
-	60% {
-		transform: translate(-2px, 0) skew(0deg);
-	}
-	62% {
-		transform: translate(0, 0) skew(5deg);
-	}
-}
-
 h1:before,
 h1:after {
 	content: attr(title);
@@ -54,20 +80,6 @@ h1:before {
 	z-index: -1;
 }
 
-@keyframes glitchTop {
-	2%,
-	64% {
-		transform: translate(2px, -2px);
-	}
-	4%,
-	60% {
-		transform: translate(-2px, 2px);
-	}
-	62% {
-		transform: translate(13px, -1px) skew(-13deg);
-	}
-}
-
 h1:after {
 	animation: glitchBotom 1.5s linear infinite;
 	clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
@@ -76,49 +88,6 @@ h1:after {
 	color: cyan;
 	position: absolute;
 	z-index: -1;
-}
-
-@keyframes glitchBotom {
-	2%,
-	64% {
-		transform: translate(-2px, 0);
-	}
-	4%,
-	60% {
-		transform: translate(-2px, 0);
-	}
-	62% {
-		transform: translate(-22px, 5px) skew(21deg);
-	}
-}
-
-@keyframes appear {
-	0% {
-		// max-height: 0%;
-		opacity: 0%;
-		transform: translateY(100px);
-	}
-	100% {
-		// max-height: 100%;
-		opacity: 100%;
-		transform: translateX(0px);
-	}
-}
-@keyframes appear2 {
-	0% {
-		// max-height: 0%;
-		opacity: 0%;
-		transform: translateY(40px);
-	}
-	100% {
-		// max-height: 100%;
-		opacity: 100%;
-		transform: translateX(0px);
-	}
-}
-
-.fade {
-	animation: fade 0.5s ease-out forwards !important;
 }
 
 .navbar {
