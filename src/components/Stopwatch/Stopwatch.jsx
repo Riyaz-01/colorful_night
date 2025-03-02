@@ -8,7 +8,6 @@ const Stopwatch = ({
 	duration = 3,
 	r = 100,
 	isRunning = false,
-	setIsRunning = () => {},
 	isCorrectHandpose = false,
 	handleTimeover = () => {},
 	reset = () => {},
@@ -16,16 +15,20 @@ const Stopwatch = ({
 	const [timeLeft, setTimeLeft] = useState(duration);
 	const [isResetting, setIsResetting] = useState(false);
 	const [timeover, setTimeover] = useState(false);
+	const [success, setSuccess] = useState(isCorrectHandpose);
 	const audioRef = useRef(null);
 
 	const resetTimer = () => {
+		if (isCorrectHandpose) setSuccess(true);
 		setIsResetting(true);
 		setTimeLeft(duration);
 		setTimeover(false);
 		reset();
+		setTimeout(() => setSuccess(false), 500);
 	};
 
 	const triggerError = () => {
+		if (isCorrectHandpose) return;
 		setTimeover(true);
 		audioRef.current.play();
 		handleTimeover();
@@ -72,7 +75,11 @@ const Stopwatch = ({
 		circumference - (timeLeft / duration) * circumference;
 
 	return (
-		<div className={`stopwatch-container ${timeover ? 'error' : ''}`}>
+		<div
+			className={`stopwatch-container ${timeover ? 'error' : ''} ${
+				success ? 'success' : ''
+			}`}
+		>
 			<svg width='200' height='200' className='stopwatch-svg'>
 				{/* Inner static circle */}
 				<circle
@@ -80,8 +87,8 @@ const Stopwatch = ({
 					cy='100'
 					r={`${r}`}
 					fill='none'
-					stroke={timeover ? '#ff6b6b' : '#e0e0e0'}
-					strokeWidth={timeover ? 5 : 3}
+					stroke={timeover ? '#ff6b6b' : '#FFFFFF'}
+					strokeWidth={timeover ? 5 : 1}
 				/>
 				{/* Outer dynamic circle (arc) */}
 				<circle

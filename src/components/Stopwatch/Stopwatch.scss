@@ -5,15 +5,27 @@
 	align-items: center;
 	gap: 20px;
 	padding: 20px;
-
-	> audio {
-		width: 0;
-		height: 0;
-	}
+	position: relative;
 
 	&.error {
-		// Apply shake to the entire container when error occurs
-		animation: errorShake 0.5s 1;
+		animation: errorShake 0.5s 2; // Existing error shake
+	}
+
+	&.success {
+		animation: successGlitch 1.2s ease-in-out 2; // Slightly faster glitch
+		// Enhanced glowing pseudo-element
+		&::after {
+			content: '';
+			position: absolute;
+			top: 4px;
+			width: 220px; // Larger than SVG for glow overflow
+			height: 220px;
+			border-radius: 50%;
+			border: 5px solid transparent; // Thicker border for stronger glow
+			animation: successGlow 1.2s ease-in-out 2; // Sync with glitch
+			filter: blur(4px); // Soften the glow
+			pointer-events: none;
+		}
 	}
 
 	.stopwatch-svg {
@@ -21,61 +33,35 @@
 
 		.progress-circle {
 			transition: stroke-dashoffset 1s linear;
-			transform: rotate(-90deg); // Base rotation for timer circle
-			transform-origin: 100px 100px; // Center of the SVG
+			transform: rotate(-90deg);
+			transform-origin: 100px 100px;
 
 			&.smooth-glitch {
 				animation: smoothColorShift 6s infinite linear;
 			}
-			&.no-transition {
-				transition: none; // Disable transition during reset
-			}
 		}
 	}
 }
+
 @keyframes smoothColorShift {
 	0% {
-		stroke: #ff6b6b; // Soft red
+		stroke: #ff6b6b;
 		filter: drop-shadow(0 0 2px rgba(255, 107, 107, 0.5));
 	}
-	10% {
-		stroke: #ff9f1c; // Bright orange
-		filter: drop-shadow(0 0 2px rgba(255, 159, 28, 0.5));
-	}
-	20% {
-		stroke: #ffd60a; // Vivid yellow
-		filter: drop-shadow(0 0 2px rgba(255, 214, 10, 0.5));
-	}
-	30% {
-		stroke: #96c93d; // Lime green (original)
-		filter: drop-shadow(0 0 2px rgba(150, 201, 61, 0.5));
-	}
-	40% {
-		stroke: #2ecc71; // Emerald green
-		filter: drop-shadow(0 0 2px rgba(46, 204, 113, 0.5));
-	}
-	50% {
-		stroke: #4ecdc4; // Turquoise (original)
+	25% {
+		stroke: #4ecdc4;
 		filter: drop-shadow(0 0 2px rgba(78, 205, 196, 0.5));
 	}
-	60% {
-		stroke: #45b7d1; // Light blue (original)
+	50% {
+		stroke: #45b7d1;
 		filter: drop-shadow(0 0 2px rgba(69, 183, 209, 0.5));
 	}
-	70% {
-		stroke: #3498db; // Bright blue
-		filter: drop-shadow(0 0 2px rgba(52, 152, 219, 0.5));
-	}
-	80% {
-		stroke: #9b59b6; // Purple
-		filter: drop-shadow(0 0 2px rgba(155, 89, 182, 0.5));
-	}
-	90% {
-		stroke: #e91e63; // Hot pink
-		filter: drop-shadow(0 0 2px rgba(233, 30, 99, 0.5));
+	75% {
+		stroke: #96c93d;
+		filter: drop-shadow(0 0 2px rgba(150, 201, 61, 0.5));
 	}
 	100% {
-		stroke: #ff6b6b; // Back to soft red
+		stroke: #ff6b6b;
 		filter: drop-shadow(0 0 2px rgba(255, 107, 107, 0.5));
 	}
 }
@@ -98,5 +84,45 @@
 	}
 	100% {
 		transform: translate(0, 0);
+	}
+}
+
+@keyframes successGlitch {
+	0% {
+		transform: translate(0, 0) scale(1);
+	}
+	20% {
+		transform: translate(1.5px, -1.5px) scale(1.02);
+	} // Slightly larger glitch with scale
+	40% {
+		transform: translate(-1.5px, 1.5px) scale(1.02);
+	}
+	60% {
+		transform: translate(1px, -1px) scale(1.01);
+	}
+	80% {
+		transform: translate(-1px, 1px) scale(1.01);
+	}
+	100% {
+		transform: translate(0, 0) scale(1);
+	}
+}
+
+@keyframes successGlow {
+	0% {
+		border-color: rgba(147, 51, 234, 0.9); // Brighter purple
+		filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.8)) blur(2px); // Stronger glow
+	}
+	33% {
+		border-color: rgba(59, 130, 246, 0.9); // Brighter blue
+		filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8)) blur(2px);
+	}
+	66% {
+		border-color: rgba(236, 72, 153, 0.9); // Brighter pink
+		filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.8)) blur(2px);
+	}
+	100% {
+		border-color: rgba(147, 51, 234, 0.9); // Back to purple
+		filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.8)) blur(2px);
 	}
 }

@@ -94,7 +94,8 @@ const Gameplay = ({ net = {} }) => {
 			setHandVisible(hands.length > 0);
 			drawhands(canvas, hands);
 
-			const detect = shouldDetectRef.current; // Use ref for current value
+			// Refs used instead of state to avoid stale closures in the continuous requestAnimationFrame loop, ensuring latest values without restarting animation.
+			const detect = shouldDetectRef.current;
 			if (!detect) return;
 
 			const gestures = detectGesture(hands);
@@ -114,7 +115,6 @@ const Gameplay = ({ net = {} }) => {
 	}, [shouldDetect]);
 	useEffect(() => {
 		currentHandposeRef.current = currentHandpose;
-		console.log('Updated currentHandposeRef:', currentHandposeRef.current);
 	}, [currentHandpose]);
 
 	return (
