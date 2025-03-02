@@ -4,27 +4,35 @@ const useAnimationFrame = ({
 	nextAnimationFrameHandler = () => {},
 	duration = Number.POSITIVE_INFINITY,
 	shouldAnimate = true,
-	frameRate = 30, // Default to 30 FPS to reduce load
+	frameRate = 30,
+	shouldDetect = false, // Add shouldDetect as a parameter
 }) => {
 	const frame = React.useRef(0);
 	const firstFrameTime = React.useRef(performance.now());
 	const lastFrameTime = React.useRef(performance.now());
 
 	const animate = async (now) => {
-		const timeSinceLastFrame = now - lastFrameTime.current;
-		const targetFrameTime = 1000 / frameRate; // e.g., 33.33ms for 30 FPS
+		try {
+			const timeSinceLastFrame = now - lastFrameTime.current;
+			const targetFrameTime = 1000 / frameRate;
 
-		if (timeSinceLastFrame >= targetFrameTime) {
-			let timeFraction = (now - firstFrameTime.current) / duration;
-			if (timeFraction > 1) timeFraction = 1;
+			if (timeSinceLastFrame >= targetFrameTime) {
+				let timeFraction = (now - firstFrameTime.current) / duration;
+				if (timeFraction > 1) timeFraction = 1;
 
-			if (timeFraction <= 1) {
-				await nextAnimationFrameHandler(timeFraction); // Handle async gracefully
+				// Pass the current shouldDetect value to the handler
+				await nextAnimationFrameHandler(timeFraction, shouldDetect);
 				lastFrameTime.current = now;
-				if (timeFraction !== 1) frame.current = requestAnimationFrame(animate);
 			}
-		} else {
-			frame.current = requestAnimationFrame(animate); // Skip frame if too soon
+
+			if (shouldAnimate) {
+				frame.current = requestAnimationFrame(animate);
+			}
+		} catch (error) {
+			console.error('Animation frame error:', error);
+			if (shouldAnimate) {
+				frame.current = requestAnimationFrame(animate);
+			}
 		}
 	};
 
@@ -38,7 +46,7 @@ const useAnimationFrame = ({
 		}
 
 		return () => cancelAnimationFrame(frame.current);
-	}, [shouldAnimate, frameRate]); // Add frameRate to dependencies if dynamic
+	}, [shouldAnimate, frameRate]);
 };
 
 export default useAnimationFrame;

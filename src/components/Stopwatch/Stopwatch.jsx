@@ -80,8 +80,8 @@ const Stopwatch = ({
 					cy='100'
 					r={`${r}`}
 					fill='none'
-					stroke='#e0e0e0'
-					strokeWidth='3'
+					stroke={timeover ? '#ff6b6b' : '#e0e0e0'}
+					strokeWidth={timeover ? 5 : 3}
 				/>
 				{/* Outer dynamic circle (arc) */}
 				<circle

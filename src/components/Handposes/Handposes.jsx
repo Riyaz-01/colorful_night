@@ -43,12 +43,13 @@ const Handposes = ({
 		setTimeout(() => {
 			setIsTimerRunning(true);
 			dispatch(startDetect());
-			console.log('timer start', { shouldDetect });
 		}, 2000); // 2000 is the climing time of the handpose circle
 	};
 
 	useEffect(() => {
-		if (isCorrectHandpose) reset();
+		if (isCorrectHandpose) {
+			reset();
+		}
 	}, [isCorrectHandpose]);
 
 	useEffect(() => {

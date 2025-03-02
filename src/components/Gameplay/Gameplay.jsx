@@ -27,9 +27,12 @@ const Gameplay = ({ net = {} }) => {
 	const successAudioRef = useRef(null);
 	const [handVisible, setHandVisible] = useState(false);
 	const [currentHandpose, setCurrentHandpose] = useState(() => false);
+	const currentHandposeRef = useRef(currentHandpose);
 	const [isCorrectHandpose, setIsCorrectHandpose] = useState(false);
+	const detectionCooldown = useRef(false); // Debounce detection
 
 	const shouldDetect = useSelector((state) => state.shouldDetect.value);
+	const shouldDetectRef = useRef(false);
 	const score = useSelector((state) => state.score.value);
 	const lives = useSelector((state) => state.lives.value);
 	const dispatch = useDispatch();
@@ -39,25 +42,24 @@ const Gameplay = ({ net = {} }) => {
 
 	const settingCanvasAndVideo = () => {
 		if (
-			typeof camRef.current === 'undefined' &&
-			camRef.current === null &&
-			!camRef.current.video.readyState
+			!camRef.current ||
+			!camRef.current.video ||
+			camRef.current.video.readyState < 2 // Ensure video has data
 		) {
-			console.error('Video not detected !!');
-			return;
+			return { canvas: null, video: null };
 		}
 		const video = camRef.current.video;
 		const canvas = canvasRef.current;
 
-		// Get Video Properties
 		const videoWidth = video.videoWidth;
 		const videoHeight = video.videoHeight;
 
-		// Set video width
-		video.width = videoWidth;
-		video.Height = videoHeight;
+		if (videoWidth === 0 || videoHeight === 0) {
+			return { canvas: null, video: null };
+		}
 
-		// Set canvas width
+		video.width = videoWidth;
+		video.height = videoHeight;
 		canvas.width = videoWidth;
 		canvas.height = videoHeight;
 
@@ -65,10 +67,17 @@ const Gameplay = ({ net = {} }) => {
 	};
 
 	const handlehHandposeDetected = () => {
+		if (detectionCooldown.current) return; // Prevent multiple triggers
+		detectionCooldown.current = true;
+
 		dispatch(stopDetect());
 		setIsCorrectHandpose(true);
 		successAudioRef.current.play();
 		dispatch(increaseScore());
+
+		setTimeout(() => {
+			detectionCooldown.current = false; // Reset cooldown after delay
+		}, 2500); // Match reset + climb delay in Handposes
 	};
 
 	const handleTimeover = () => {
@@ -85,15 +94,28 @@ const Gameplay = ({ net = {} }) => {
 			setHandVisible(hands.length > 0);
 			drawhands(canvas, hands);
 
-			if (!shouldDetect) return;
+			const detect = shouldDetectRef.current; // Use ref for current value
+			if (!detect) return;
+
 			const gestures = detectGesture(hands);
-			console.log(gestures);
-			if (gestures?.includes(handposeIds[currentHandpose]))
+			const currentPose = currentHandposeRef.current;
+			if (gestures?.includes(handposeIds[currentPose])) {
 				handlehHandposeDetected();
+			}
 		},
-		shouldAnimate: shouldDetect,
+		shouldAnimate: true,
+		shouldDetect: shouldDetect,
 		frameRate: 20,
 	});
+
+	// Sync refs with state
+	useEffect(() => {
+		shouldDetectRef.current = shouldDetect;
+	}, [shouldDetect]);
+	useEffect(() => {
+		currentHandposeRef.current = currentHandpose;
+		console.log('Updated currentHandposeRef:', currentHandposeRef.current);
+	}, [currentHandpose]);
 
 	return (
 		<div id='gameplay'>
