@@ -19,12 +19,14 @@ const Stopwatch = ({
 	const audioRef = useRef(null);
 
 	const resetTimer = () => {
-		if (isCorrectHandpose) setSuccess(true);
+		if (isCorrectHandpose) {
+			setSuccess(true);
+			setTimeout(() => setSuccess(false), 500);
+		}
 		setIsResetting(true);
 		setTimeLeft(duration);
 		setTimeover(false);
 		reset();
-		setTimeout(() => setSuccess(false), 500);
 	};
 
 	const triggerError = () => {
