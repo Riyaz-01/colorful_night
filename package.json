@@ -11,12 +11,14 @@
 	},
 	"dependencies": {
 		"@mediapipe/hands": "^0.4.1675469240",
+		"@reduxjs/toolkit": "^2.6.0",
 		"@tensorflow-models/hand-pose-detection": "^2.0.1",
 		"@tensorflow-models/handpose": "^0.1.0",
 		"@tensorflow/tfjs": "^4.15.0",
 		"fingerpose": "^0.1.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-redux": "^9.2.0",
 		"react-webcam": "^7.2.0",
 		"sass": "^1.69.7",
 		"three": "^0.160.0"

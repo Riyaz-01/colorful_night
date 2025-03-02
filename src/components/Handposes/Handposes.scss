@@ -1,0 +1,53 @@
+$climb-time: 2s;
+$fit-time: 300ms;
+
+#handposes {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	top: 80px;
+	right: 120px;
+	height: 100vh;
+
+	#handpose {
+		position: absolute;
+
+		font-size: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		will-change: transform;
+
+		transform: scaleX(-1) translateY(100vh);
+		transition: all;
+
+		&.animate {
+			animation: climb calc($climb-time - $fit-time) ease-out forwards;
+
+			circle {
+				animation: fit $fit-time;
+				animation-delay: calc($climb-time - $fit-time);
+				animation-fill-mode: forwards;
+			}
+		}
+	}
+}
+
+@keyframes climb {
+	0% {
+		transform: scaleX(-1) translateY(100vh);
+	}
+	100% {
+		transform: scaleX(-1) translateY(20px);
+	}
+}
+@keyframes fit {
+	0% {
+		r: 60;
+	}
+	100% {
+		r: 98;
+	}
+}

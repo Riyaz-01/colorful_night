@@ -1,0 +1,102 @@
+// Stopwatch.scss
+.stopwatch-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+	padding: 20px;
+
+	> audio {
+		width: 0;
+		height: 0;
+	}
+
+	&.error {
+		// Apply shake to the entire container when error occurs
+		animation: errorShake 0.5s 1;
+	}
+
+	.stopwatch-svg {
+		overflow: visible;
+
+		.progress-circle {
+			transition: stroke-dashoffset 1s linear;
+			transform: rotate(-90deg); // Base rotation for timer circle
+			transform-origin: 100px 100px; // Center of the SVG
+
+			&.smooth-glitch {
+				animation: smoothColorShift 6s infinite linear;
+			}
+			&.no-transition {
+				transition: none; // Disable transition during reset
+			}
+		}
+	}
+}
+@keyframes smoothColorShift {
+	0% {
+		stroke: #ff6b6b; // Soft red
+		filter: drop-shadow(0 0 2px rgba(255, 107, 107, 0.5));
+	}
+	10% {
+		stroke: #ff9f1c; // Bright orange
+		filter: drop-shadow(0 0 2px rgba(255, 159, 28, 0.5));
+	}
+	20% {
+		stroke: #ffd60a; // Vivid yellow
+		filter: drop-shadow(0 0 2px rgba(255, 214, 10, 0.5));
+	}
+	30% {
+		stroke: #96c93d; // Lime green (original)
+		filter: drop-shadow(0 0 2px rgba(150, 201, 61, 0.5));
+	}
+	40% {
+		stroke: #2ecc71; // Emerald green
+		filter: drop-shadow(0 0 2px rgba(46, 204, 113, 0.5));
+	}
+	50% {
+		stroke: #4ecdc4; // Turquoise (original)
+		filter: drop-shadow(0 0 2px rgba(78, 205, 196, 0.5));
+	}
+	60% {
+		stroke: #45b7d1; // Light blue (original)
+		filter: drop-shadow(0 0 2px rgba(69, 183, 209, 0.5));
+	}
+	70% {
+		stroke: #3498db; // Bright blue
+		filter: drop-shadow(0 0 2px rgba(52, 152, 219, 0.5));
+	}
+	80% {
+		stroke: #9b59b6; // Purple
+		filter: drop-shadow(0 0 2px rgba(155, 89, 182, 0.5));
+	}
+	90% {
+		stroke: #e91e63; // Hot pink
+		filter: drop-shadow(0 0 2px rgba(233, 30, 99, 0.5));
+	}
+	100% {
+		stroke: #ff6b6b; // Back to soft red
+		filter: drop-shadow(0 0 2px rgba(255, 107, 107, 0.5));
+	}
+}
+
+@keyframes errorShake {
+	0% {
+		transform: translate(0, 0);
+	}
+	20% {
+		transform: translate(3px, -3px);
+	}
+	40% {
+		transform: translate(-3px, 3px);
+	}
+	60% {
+		transform: translate(2px, -2px);
+	}
+	80% {
+		transform: translate(-2px, 2px);
+	}
+	100% {
+		transform: translate(0, 0);
+	}
+}
