@@ -84,14 +84,16 @@ const Stopwatch = ({
 		>
 			<svg width='200' height='200' className='stopwatch-svg'>
 				{/* Inner static circle */}
-				<circle
-					cx='100'
-					cy='100'
-					r={`${r}`}
-					fill='none'
-					stroke={timeover ? '#ff6b6b' : '#FFFFFF'}
-					strokeWidth={timeover ? 5 : 1}
-				/>
+				{timeover && (
+					<circle
+						cx='100'
+						cy='100'
+						r={`${r}`}
+						fill='none'
+						stroke={timeover ? '#ff6b6b' : '#FFFFFF'}
+						strokeWidth={timeover ? 5 : 1}
+					/>
+				)}
 				{/* Outer dynamic circle (arc) */}
 				<circle
 					cx='100'

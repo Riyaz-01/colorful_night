@@ -8,7 +8,7 @@
 	position: relative;
 
 	&.error {
-		animation: errorShake 0.5s 2; // Existing error shake
+		animation: errorShake 0.5s 2;
 	}
 
 	&.success {
@@ -38,6 +38,9 @@
 
 			&.smooth-glitch {
 				animation: smoothColorShift 6s infinite linear;
+			}
+			&.no-transition {
+				transition: none; // Disable transition for instant reset
 			}
 		}
 	}
