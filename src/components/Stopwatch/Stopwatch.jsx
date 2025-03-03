@@ -48,14 +48,9 @@ const Stopwatch = ({
 			setTimeLeft((prev) => prev - 1); // Immediate start
 			timer = setInterval(() => {
 				setTimeLeft((prev) => {
-					if (prev <= 1) {
-						clearInterval(timer); // Stop the interval
-						if (isRunning) {
-							// Only trigger error if timer expired naturally
-							setTimeout(() => {
-								triggerError();
-							}, 1000); // Delay error by 1s
-						}
+					if (prev == 0) {
+						triggerError();
+						clearInterval(timer);
 						return 0;
 					}
 					return prev - 1;

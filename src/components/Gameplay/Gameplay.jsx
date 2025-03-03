@@ -15,7 +15,7 @@ import Handposes from '../Handposes/Handposes.jsx';
 import Hands3d from '../Hands3d/Hands3d.jsx';
 
 const Gameplay = ({ net = {} }) => {
-	const duration = 3;
+	const duration = 2;
 	const successAudioRef = useRef(null);
 	const [handVisible, setHandVisible] = useState(false);
 	const [currentHandpose, setCurrentHandpose] = useState(() => false);
