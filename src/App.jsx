@@ -45,7 +45,7 @@ function App() {
 				<Loader />
 			) : (
 				<div id='main'>
-					<Stars />
+					<Stars numberOfStars={30} minSize={1} maxSize={3} />
 					{/* <Intro startGame={startGame} /> */}
 					{showCanvas && <Gameplay net={net} />}
 				</div>

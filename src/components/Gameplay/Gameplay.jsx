@@ -3,6 +3,7 @@ import './Gameplay.scss';
 
 // assets
 import detectSuccessAudio from '../../assets/sounds/detectSuccess.mp3';
+import heartIcon from '../../assets/images/heart-icon.png';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,6 +52,14 @@ const Gameplay = ({ net = {} }) => {
 	return (
 		<div id='gameplay'>
 			<Instructions handVisible={handVisible} />
+			<div id='lives' className='status'>
+				{[...Array(lives)].map(() => (
+					<img src={heartIcon} alt='heart' />
+				))}
+			</div>
+			<div id='score' className='status'>
+				{score}
+			</div>
 			<Handposes
 				currentHandpose={currentHandpose}
 				setCurrentHandpose={setCurrentHandpose}
