@@ -40,7 +40,7 @@ const Gameplay = ({ net = {} }) => {
 
 		setTimeout(() => {
 			detectionCooldown.current = false; // Reset cooldown after delay
-		}, 2500); // Match reset + climb delay in Handposes
+		}, 2000); // Match reset + climb delay in Handposes
 	};
 
 	const handleTimeover = () => {
@@ -67,6 +67,7 @@ const Gameplay = ({ net = {} }) => {
 				handlehHandposeDetected={handlehHandposeDetected}
 				setHandVisible={setHandVisible}
 			/>
+
 			<audio
 				controls
 				src={detectSuccessAudio}
