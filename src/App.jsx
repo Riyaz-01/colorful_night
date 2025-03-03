@@ -36,7 +36,7 @@ function App() {
 
 	useEffect(() => {
 		runHandPose();
-		startGame(); // starting for testing
+		// startGame(); // starting for testing
 	}, []);
 
 	return (
@@ -46,7 +46,7 @@ function App() {
 			) : (
 				<div id='main'>
 					<Stars />
-					{/* <Intro startGame={startGame} /> */}
+					<Intro startGame={startGame} />
 					{showCanvas && <Gameplay net={net} />}
 				</div>
 			)}

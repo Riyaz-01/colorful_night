@@ -1,6 +1,6 @@
 #instructions {
 	font-family: inter;
-	color: rgba(255, 255, 255, 0.857);
+	color: rgba(255, 255, 255, 0.619);
 	position: absolute;
 	top: 200px;
 
@@ -13,7 +13,10 @@
 		margin-bottom: 40px;
 
 		&.ins1 {
-			font-size: 24px;
+			font-size: 20px;
+		}
+		&.ins2 {
+			font-size: 16px;
 		}
 	}
 }

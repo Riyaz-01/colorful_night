@@ -5,7 +5,7 @@ import './Handposes.scss';
 import { getRandomPoseIcon } from '../../utils/handposes';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { startDetect, stopDetect } from '../../redux/detectSlice.js';
 
 // components
@@ -18,12 +18,11 @@ const Handposes = ({
 	isCorrectHandpose = false,
 	setIsCorrectHandpose = () => {},
 	handleTimeover = () => {},
-	handVisible = true,
+	// handVisible = false,
 }) => {
 	const [isTimerRunning, setIsTimerRunning] = useState(false);
 	const [climb, setClimb] = useState(false);
 
-	const shouldDetect = useSelector((state) => state.shouldDetect.value);
 	const dispatch = useDispatch();
 
 	const reset = () => {
@@ -33,6 +32,7 @@ const Handposes = ({
 		setIsCorrectHandpose(false);
 		dispatch(stopDetect());
 
+		// if (handVisible)
 		setTimeout(() => {
 			startTimer();
 		}, 500);
@@ -56,7 +56,6 @@ const Handposes = ({
 		reset();
 	}, []);
 
-	// if (!handVisible) return <></>;
 	return (
 		<div id='handposes'>
 			<Stopwatch
