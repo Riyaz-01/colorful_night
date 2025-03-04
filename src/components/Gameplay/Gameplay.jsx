@@ -49,6 +49,16 @@ const Gameplay = ({ net = {} }) => {
 		dispatch(decreaseLives());
 	};
 
+	const handleGameOver = () => {
+		dispatch(stopDetect());
+	};
+
+	useEffect(() => {
+		if (lives === 0) {
+			handleGameOver();
+		}
+	}, [lives]);
+
 	return (
 		<div id='gameplay'>
 			<Instructions handVisible={handVisible} />

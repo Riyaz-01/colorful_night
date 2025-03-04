@@ -18,11 +18,11 @@ import Stopwatch from './components/Stopwatch/Stopwatch.jsx';
 function App() {
 	const [loading, setLoading] = useState(false);
 
-	const [showCanvas, setShowCanvas] = useState(false);
+	const [isGameRunning, setIsGameRunning] = useState(false);
 	const [net, setNet] = useState(null);
 
 	const startGame = () => {
-		setShowCanvas(true);
+		setIsGameRunning(true);
 	};
 
 	const runHandPose = async () => {
@@ -47,7 +47,7 @@ function App() {
 				<div id='main'>
 					<Stars numberOfStars={30} minSize={1} maxSize={3} />
 					{/* <Intro startGame={startGame} /> */}
-					{showCanvas && <Gameplay net={net} />}
+					{isGameRunning && <Gameplay net={net} />}
 				</div>
 			)}
 		</div>
