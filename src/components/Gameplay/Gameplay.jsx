@@ -14,12 +14,15 @@ import { increaseScore } from '../../redux/scoreSlice.js';
 // components
 import Handposes from '../Handposes/Handposes.jsx';
 import Hands3d from '../Hands3d/Hands3d.jsx';
+import Gameover from '../Gameover/Gameover.jsx';
 
 const Gameplay = ({ net = {} }) => {
 	const duration = 2;
 	const successAudioRef = useRef(null);
 	const [handVisible, setHandVisible] = useState(false);
 	const [currentHandpose, setCurrentHandpose] = useState(() => false);
+	const [gameover, setGameover] = useState(true);
+	const gameoverRef = useRef({});
 
 	const [isCorrectHandpose, setIsCorrectHandpose] = useState(false);
 	const detectionCooldown = useRef(false); // Debounce detection
@@ -49,16 +52,19 @@ const Gameplay = ({ net = {} }) => {
 		dispatch(decreaseLives());
 	};
 
-	const handleGameOver = () => {
+	const handleGameover = () => {
+		gameoverRef.current.play();
+		setGameover(true);
 		dispatch(stopDetect());
 	};
 
 	useEffect(() => {
 		if (lives === 0) {
-			handleGameOver();
+			handleGameover();
 		}
 	}, [lives]);
 
+	if (gameover) return <Gameover audioRef={gameoverRef} />;
 	return (
 		<div id='gameplay'>
 			<Instructions handVisible={handVisible} />
@@ -87,12 +93,7 @@ const Gameplay = ({ net = {} }) => {
 				setHandVisible={setHandVisible}
 			/>
 
-			<audio
-				controls
-				src={detectSuccessAudio}
-				ref={successAudioRef}
-				id='error'
-			/>
+			<audio src={detectSuccessAudio} ref={successAudioRef} id='error' />
 		</div>
 	);
 };

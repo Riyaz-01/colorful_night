@@ -26,16 +26,20 @@ function App() {
 	};
 
 	const runHandPose = async () => {
-		setLoading(true);
-		console.log('handpose model is loading...');
-		const net = await handPoseDetection.load();
-		console.log('handpose model loaded');
-		setLoading(false);
-		setNet(net);
+		try {
+			setLoading(true);
+			const loadedNet = await handPoseDetection.load();
+			setNet(loadedNet);
+		} catch (error) {
+			console.error('Failed to load handpose model:', error);
+			// Optionally set an error state
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
-		runHandPose();
+		// runHandPose();
 		startGame(); // starting for testing
 	}, []);
 
