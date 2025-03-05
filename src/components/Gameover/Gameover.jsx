@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Gameover.scss';
 
 // assets
 import gameoverAudio from '../../assets/sounds/game-over.mp3';
-import { useSelector } from 'react-redux';
+
+// components
 import NameInput from '../NameInput/NameInput';
 
-const Gameover = ({ audioRef = {} }) => {
-	const score = useSelector((state) => state.score.value);
+const Gameover = ({ score = 0 }) => {
+	const gameoverAudioRef = useRef({});
+
+	useEffect(() => {
+		gameoverAudioRef.current.play();
+	}, []);
 	return (
 		<div id='gameover' className='appear1'>
 			<p>Game Over</p>
@@ -16,7 +21,7 @@ const Gameover = ({ audioRef = {} }) => {
 				title={`Score : ${score}`}
 			>{`Score : ${score}`}</div>
 			<NameInput />
-			<audio src={gameoverAudio} ref={audioRef} id='gameover' />
+			<audio src={gameoverAudio} ref={gameoverAudioRef} id='gameover' />
 		</div>
 	);
 };

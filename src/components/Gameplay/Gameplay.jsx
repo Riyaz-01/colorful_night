@@ -3,35 +3,34 @@ import './Gameplay.scss';
 
 // assets
 import detectSuccessAudio from '../../assets/sounds/detectSuccess.mp3';
-import heartIcon from '../../assets/images/heart-icon.png';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { stopDetect } from '../../redux/detectSlice.js';
 import { decreaseLives } from '../../redux/livesSlice.js';
 import { increaseScore } from '../../redux/scoreSlice.js';
+import { endGame } from '../../redux/gameoverSlice.js';
 
 // components
 import Handposes from '../Handposes/Handposes.jsx';
 import Hands3d from '../Hands3d/Hands3d.jsx';
 import Gameover from '../Gameover/Gameover.jsx';
+import ScoreLives from '../ScoreLives/ScoreLives.jsx';
 
 const Gameplay = ({ net = {} }) => {
 	const duration = 2;
 	const successAudioRef = useRef(null);
 	const [handVisible, setHandVisible] = useState(false);
 	const [currentHandpose, setCurrentHandpose] = useState(() => false);
-	const [gameover, setGameover] = useState(true);
-	const gameoverRef = useRef({});
-
 	const [isCorrectHandpose, setIsCorrectHandpose] = useState(false);
-	const detectionCooldown = useRef(false); // Debounce detection
-
 	const shouldDetect = useSelector((state) => state.shouldDetect.value);
 
 	const score = useSelector((state) => state.score.value);
 	const lives = useSelector((state) => state.lives.value);
+	const gameover = useSelector((state) => state.gameover.value);
 	const dispatch = useDispatch();
+
+	const detectionCooldown = useRef(false); // Debounce detection
 
 	const handlehHandposeDetected = () => {
 		if (detectionCooldown.current) return; // Prevent multiple triggers
@@ -53,8 +52,8 @@ const Gameplay = ({ net = {} }) => {
 	};
 
 	const handleGameover = () => {
-		gameoverRef.current.play();
-		setGameover(true);
+		dispatch(endGame());
+		dispatch(stopDetect());
 		dispatch(stopDetect());
 	};
 
@@ -64,18 +63,10 @@ const Gameplay = ({ net = {} }) => {
 		}
 	}, [lives]);
 
-	if (gameover) return <Gameover audioRef={gameoverRef} />;
 	return (
 		<div id='gameplay'>
 			<Instructions handVisible={handVisible} />
-			<div id='lives' className='status'>
-				{[...Array(lives)].map(() => (
-					<img src={heartIcon} alt='heart' />
-				))}
-			</div>
-			<div id='score' className='status'>
-				{score}
-			</div>
+			<ScoreLives score={score} lives={lives} />
 			<Handposes
 				currentHandpose={currentHandpose}
 				setCurrentHandpose={setCurrentHandpose}

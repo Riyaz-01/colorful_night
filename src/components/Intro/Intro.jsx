@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import './Intro.scss';
 
+// assets
 import tutorialVid from '../../assets/tutorial.mov';
+
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { startGame } from '../../redux/gameoverSlice.js';
+
+// components
 import Button from '../Button/Button';
 import Sound from '../Sound/Sound';
 
-const Intro = ({ startGame = () => {}, ...props }) => {
+const Intro = ({ onEnd = () => {} }) => {
 	const [animationIndex, setAnimationIndex] = useState(null);
 	const [showDesc, setShowDesc] = useState(false);
-	const [showTut, setShowTut] = useState(false);
+	const [showTutVid, setShowTutVid] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
+
+	const gameover = useSelector((state) => state.gameover.value);
+	const dispatch = useDispatch();
 
 	const handleClick1 = () => {
 		setShowDesc(false);
-		setShowTut(true);
+		setShowTutVid(true);
 		setIsPlaying(true);
 	};
 
 	const handleClick2 = () => {
 		setAnimationIndex(2);
 		setTimeout(() => {
-			setShowTut(false);
+			setShowTutVid(false);
 			setAnimationIndex(1);
-			startGame();
+			onEnd();
+			dispatch(startGame());
 		}, 500);
 	};
 
@@ -35,6 +46,11 @@ const Intro = ({ startGame = () => {}, ...props }) => {
 	useEffect(() => {
 		startAnimations();
 	}, []);
+
+	useEffect(() => {
+		if (gameover) setIsPlaying(false);
+	}, [gameover]);
+
 	return (
 		<>
 			<div className={'intro-wrapper ' + animationClasses[animationIndex]}>
@@ -60,13 +76,13 @@ const Intro = ({ startGame = () => {}, ...props }) => {
 					</Button>
 				</div>
 			)}
-			{showTut && (
+			{showTutVid && (
 				<div
 					id={'video-wrapper'}
 					className={animationIndex == 2 && 'fade-video'}
 				>
 					<Button onClick={handleClick2} delay={0}>
-						Ready to play !
+						Start Game !
 					</Button>
 					<video src={tutorialVid} autoPlay={true} loop={true} />
 				</div>

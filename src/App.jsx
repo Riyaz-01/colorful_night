@@ -7,23 +7,23 @@ import './App.scss';
 import * as handPoseDetection from '@tensorflow-models/handpose';
 import '@tensorflow/tfjs-backend-webgl';
 
+// redux
+import { useSelector } from 'react-redux';
+
 // components
 import Stars from './components/Stars/Stars.jsx';
 import Loader from './components/Loader/Loader.jsx';
 import Intro from './components/Intro/Intro.jsx';
 import Gameplay from './components/Gameplay/Gameplay.jsx';
-import Handposes from './components/Handposes/Handposes.jsx';
-import Stopwatch from './components/Stopwatch/Stopwatch.jsx';
+import Gameover from './components/Gameover/Gameover.jsx';
 
 function App() {
 	const [loading, setLoading] = useState(false);
-
-	const [isGameRunning, setIsGameRunning] = useState(false);
 	const [net, setNet] = useState(null);
+	const [startIntro, setStartIntro] = useState(true);
 
-	const startGame = () => {
-		setIsGameRunning(true);
-	};
+	const gameover = useSelector((state) => state.gameover.value);
+	const score = useSelector((state) => state.score.value);
 
 	const runHandPose = async () => {
 		try {
@@ -32,15 +32,13 @@ function App() {
 			setNet(loadedNet);
 		} catch (error) {
 			console.error('Failed to load handpose model:', error);
-			// Optionally set an error state
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	useEffect(() => {
-		// runHandPose();
-		startGame(); // starting for testing
+		runHandPose();
 	}, []);
 
 	return (
@@ -50,8 +48,10 @@ function App() {
 			) : (
 				<div id='main'>
 					<Stars numberOfStars={30} minSize={1} maxSize={3} />
-					{/* <Intro startGame={startGame} /> */}
-					{isGameRunning && <Gameplay net={net} />}
+					<Intro startIntro={startIntro} onEnd={() => setStartIntro(false)} />
+					{!gameover && <Gameplay net={net} />}
+					{gameover && !startIntro && <Gameover score={score} />}
+					{/* <Gameplay net={net} /> */}
 				</div>
 			)}
 		</div>

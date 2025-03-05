@@ -37,7 +37,6 @@ const Stopwatch = ({
 		hasTriggeredErrorRef.current = true;
 		setTimeover(true);
 		audioRef.current.play();
-		console.log('inside trigger error');
 		handleTimeover();
 		setTimeout(() => {
 			resetTimer();
