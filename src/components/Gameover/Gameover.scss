@@ -1,0 +1,54 @@
+#gameover {
+	height: 100vh;
+	width: 100vw;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	font-family: gridular;
+
+	> p {
+		color: white;
+		font-size: 80px;
+		margin-bottom: 40px;
+	}
+
+	> .score {
+		font-size: 30px;
+		animation: glitch 1s linear infinite;
+		color: rgb(255, 255, 255);
+		font-family: gridular;
+		font-weight: 500;
+		z-index: 2;
+		margin-bottom: 10px;
+
+		&:before,
+		&:after {
+			content: attr(title);
+			position: absolute;
+			left: 0;
+		}
+
+		&:before {
+			animation: glitchTop 1s linear infinite;
+			clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+			-webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+
+			color: magenta;
+			position: absolute;
+			z-index: -1;
+		}
+
+		&:after {
+			animation: glitchBotom 1.5s linear infinite;
+			clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+			-webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+
+			color: cyan;
+			position: absolute;
+			z-index: -1;
+		}
+	}
+}

@@ -1,6 +1,6 @@
 $animation-duration: 30s;
 
-@mixin dots($count: 1, $color, $pos: -530) {
+@mixin dots($count: 0.8, $color, $pos: -530) {
 	$text-shadow: ();
 	@for $i from 0 through $count {
 		$text-shadow: $text-shadow,
@@ -8,6 +8,7 @@ $animation-duration: 30s;
 	}
 	text-shadow: $text-shadow;
 }
+
 #stars {
 	width: 100vw;
 	height: 100vh;
@@ -22,14 +23,77 @@ $animation-duration: 30s;
 	width: 10px;
 	border-radius: 50%;
 
-	box-shadow: -42vw -4vh 0px 0px #fff, 25vw -41vh 0px 0px #fff,
-		-20vw 49vh 0px 1px #fff, 5vw 40vh 1px 1px #fff, 27vw 19vh 1px 0px #fff,
-		-44vw -13vh 0px 0px #fff, 23vw 41vh 0px 1px #fff, 48vw 33vh 1px 0px #fff,
-		12vw -6vh 1px 0px #fff, -34vw 48vh 1px 1px #fff, 32vw 26vh 1px 1px #fff,
-		38vw -45vh 1px 1px #fff, 0vw 37vh 1px 1px #fff, 34vw -26vh 1px 0px #fff,
-		-31vw -48vh 1px 0px #fff, -12vw 29vh 0px 1px #fff, -44vw -33vh 0px 1px #fff,
-		-26vw 26vh 0px 0px #fff, 32vw 6vh 0px 1px #fff, -21vw -23vh 1px 0px #fff;
+	box-shadow: 
+        // Original white stars with reduced size
+		-42vw -4vh 0px 0px #fff, 25vw -41vh 0px 0px #fff, -20vw 49vh 0px 0.5px #fff,
+		5vw 40vh 0px 0.5px #fff, 27vw 19vh 0px 0.5px #fff, -44vw -13vh 0px 0px #fff,
+		23vw 41vh 0px 0.5px #fff, 48vw 33vh 0px 0.5px #fff, 12vw -6vh 0px 0.5px #fff,
+		-34vw 48vh 0px 0.5px #fff, 32vw 26vh 0px 0.5px #fff, 0vw 37vh 0px 0.5px #fff,
+		34vw -26vh 0px 0.5px #fff, -31vw -48vh 0px 0.5px #fff,
+		-12vw 29vh 0px 0.5px #fff, -44vw -33vh 0px 0.5px #fff,
+		-26vw 26vh 0px 0px #fff, 32vw 6vh 0px 0.5px #fff, -21vw -23vh 0px 0.5px #fff,
+		// Red glitch shadows (2 o'clock: right and slightly up)
+		calc(-42vw + 0.07vw) calc(-4vh - 0.121vw) 0px 0px rgba(255, 0, 0, 0.8),
+		calc(25vw + 0.07vw) calc(-41vh - 0.121vw) 0px 0px rgba(255, 0, 0, 0.8),
+		calc(-20vw + 0.07vw) calc(49vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(5vw + 0.07vw) calc(40vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(27vw + 0.07vw) calc(19vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(-44vw + 0.07vw) calc(-13vh - 0.121vw) 0px 0px rgba(255, 0, 0, 0.8),
+		calc(23vw + 0.07vw) calc(41vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(48vw + 0.07vw) calc(33vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(12vw + 0.07vw) calc(-6vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(-34vw + 0.07vw) calc(48vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(32vw + 0.07vw) calc(26vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(0vw + 0.07vw) calc(37vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(34vw + 0.07vw) calc(-26vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(-31vw + 0.07vw) calc(-48vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(-12vw + 0.07vw) calc(29vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(-44vw + 0.07vw) calc(-33vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(-26vw + 0.07vw) calc(26vh - 0.121vw) 0px 0px rgba(255, 0, 0, 0.8),
+		calc(32vw + 0.07vw) calc(6vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		calc(-21vw + 0.07vw) calc(-23vh - 0.121vw) 0px 0.5px rgba(255, 0, 0, 0.8),
+		// Green glitch shadows (7 o'clock: left and down)
+		calc(-42vw - 0.0606vw) calc(-4vh + 0.035vw) 0px 0px rgba(0, 255, 0, 0.8),
+		calc(25vw - 0.0606vw) calc(-41vh + 0.035vw) 0px 0px rgba(0, 255, 0, 0.8),
+		calc(-20vw - 0.0606vw) calc(49vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(5vw - 0.0606vw) calc(40vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(27vw - 0.0606vw) calc(19vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(-44vw - 0.0606vw) calc(-13vh + 0.035vw) 0px 0px rgba(0, 255, 0, 0.8),
+		calc(23vw - 0.0606vw) calc(41vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(48vw - 0.0606vw) calc(33vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(12vw - 0.0606vw) calc(-6vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(-34vw - 0.0606vw) calc(48vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(32vw - 0.0606vw) calc(26vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(0vw - 0.0606vw) calc(37vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(34vw - 0.0606vw) calc(-26vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(-31vw - 0.0606vw) calc(-48vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(-12vw - 0.0606vw) calc(29vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(-44vw - 0.0606vw) calc(-33vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(-26vw - 0.0606vw) calc(26vh + 0.035vw) 0px 0px rgba(0, 255, 0, 0.8),
+		calc(32vw - 0.0606vw) calc(6vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		calc(-21vw - 0.0606vw) calc(-23vh + 0.035vw) 0px 0.5px rgba(0, 255, 0, 0.8),
+		// Blue glitch shadows (10 o'clock: left and slightly up)
+		calc(-42vw - 0.07vw) calc(-4vh - 0.121vw) 0px 0px rgba(0, 0, 255, 0.8),
+		calc(25vw - 0.07vw) calc(-41vh - 0.121vw) 0px 0px rgba(0, 0, 255, 0.8),
+		calc(-20vw - 0.07vw) calc(49vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(5vw - 0.07vw) calc(40vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(27vw - 0.07vw) calc(19vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(-44vw - 0.07vw) calc(-13vh - 0.121vw) 0px 0px rgba(0, 0, 255, 0.8),
+		calc(23vw - 0.07vw) calc(41vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(48vw - 0.07vw) calc(33vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(12vw - 0.07vw) calc(-6vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(-34vw - 0.07vw) calc(48vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(32vw - 0.07vw) calc(26vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(0vw - 0.07vw) calc(37vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(34vw - 0.07vw) calc(-26vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(-31vw - 0.07vw) calc(-48vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(-12vw - 0.07vw) calc(29vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(-44vw - 0.07vw) calc(-33vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(-26vw - 0.07vw) calc(26vh - 0.121vw) 0px 0px rgba(0, 0, 255, 0.8),
+		calc(32vw - 0.07vw) calc(6vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8),
+		calc(-21vw - 0.07vw) calc(-23vh - 0.121vw) 0px 0.5px rgba(0, 0, 255, 0.8);
 }
+
 #stars::before,
 #stars::after {
 	position: fixed;
@@ -56,11 +120,11 @@ $animation-duration: 30s;
 
 @keyframes move {
 	from {
-		transform: rotate(40deg) scale(6) translatey(10px);
-		opacity: 1;
+		transform: rotate(40deg) scale(6) translateY(10px);
+		opacity: 0.8;
 	}
 	to {
-		transform: rotate(-190deg) scale(8) translatey(10px);
+		transform: rotate(-190deg) scale(8) translateY(10px);
 		opacity: 0.7;
 	}
 }

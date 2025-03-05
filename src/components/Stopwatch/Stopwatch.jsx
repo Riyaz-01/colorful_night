@@ -17,6 +17,8 @@ const Stopwatch = ({
 	const [timeover, setTimeover] = useState(false);
 	const [success, setSuccess] = useState(isCorrectHandpose);
 	const audioRef = useRef(null);
+	const hasTriggeredErrorRef = useRef(false);
+	const timerRef = useRef(null);
 
 	const resetTimer = () => {
 		if (isCorrectHandpose) {
@@ -26,11 +28,13 @@ const Stopwatch = ({
 		setIsResetting(true);
 		setTimeLeft(duration);
 		setTimeover(false);
+		hasTriggeredErrorRef.current = false;
 		reset();
 	};
 
 	const triggerError = () => {
-		if (isCorrectHandpose) return;
+		if (isCorrectHandpose || hasTriggeredErrorRef.current) return;
+		hasTriggeredErrorRef.current = true;
 		setTimeover(true);
 		audioRef.current.play();
 		handleTimeover();
@@ -40,34 +44,40 @@ const Stopwatch = ({
 	};
 
 	useEffect(() => {
-		if (!isRunning) return;
+		if (!isRunning) {
+			if (timerRef.current) clearInterval(timerRef.current);
+			return;
+		}
 
 		setIsResetting(false);
-		let timer;
+		if (timerRef.current) clearInterval(timerRef.current); // Clear any existing interval
+
 		if (timeLeft > 0) {
-			setTimeLeft((prev) => prev - 1); // Immediate start
-			timer = setInterval(() => {
+			setTimeLeft((prev) => prev - 1);
+			timerRef.current = setInterval(() => {
 				setTimeLeft((prev) => {
-					if (prev <= 1) {
-						clearInterval(timer); // Stop the interval
-						if (isRunning) {
-							// Only trigger error if timer expired naturally
-							setTimeout(() => {
-								triggerError();
-							}, 1000); // Delay error by 1s
-						}
+					if (prev === 0) {
+						clearInterval(timerRef.current);
+						triggerError();
 						return 0;
 					}
 					return prev - 1;
 				});
 			}, 1000);
+		} else if (timeLeft === 0 && !hasTriggeredErrorRef.current) {
+			triggerError();
 		}
 
-		return () => clearInterval(timer);
+		return () => {
+			if (timerRef.current) clearInterval(timerRef.current);
+		};
 	}, [isRunning]);
 
 	useEffect(() => {
-		if (isCorrectHandpose && isRunning) resetTimer();
+		if (isCorrectHandpose && isRunning) {
+			if (timerRef.current) clearInterval(timerRef.current);
+			resetTimer();
+		}
 	}, [isCorrectHandpose]);
 
 	// Calculate the stroke dash offset for the outer circle
@@ -83,7 +93,6 @@ const Stopwatch = ({
 			}`}
 		>
 			<svg width='200' height='200' className='stopwatch-svg'>
-				{/* Inner static circle */}
 				{timeover && (
 					<circle
 						cx='100'
@@ -94,13 +103,12 @@ const Stopwatch = ({
 						strokeWidth={timeover ? 5 : 1}
 					/>
 				)}
-				{/* Outer dynamic circle (arc) */}
 				<circle
 					cx='100'
 					cy='100'
 					r={radius}
 					fill='none'
-					stroke='#4CAF50' // Base color will be overridden by animation
+					stroke='#4CAF50'
 					strokeWidth='4'
 					strokeDasharray={circumference}
 					strokeDashoffset={strokeDashoffset}

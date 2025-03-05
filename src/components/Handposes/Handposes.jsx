@@ -43,7 +43,7 @@ const Handposes = ({
 		setTimeout(() => {
 			setIsTimerRunning(true);
 			dispatch(startDetect());
-		}, 2000); // 2000 is the climing time of the handpose circle
+		}, 1500); // 2000 is the climing time of the handpose circle
 	};
 
 	useEffect(() => {
@@ -59,6 +59,7 @@ const Handposes = ({
 	return (
 		<div id='handposes'>
 			<Stopwatch
+				r={90}
 				isRunning={isTimerRunning}
 				setIsRunning={setIsTimerRunning}
 				isCorrectHandpose={isCorrectHandpose}
