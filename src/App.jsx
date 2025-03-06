@@ -48,10 +48,10 @@ function App() {
 			) : (
 				<div id='main'>
 					<Stars numberOfStars={30} minSize={1} maxSize={3} />
-					<Intro startIntro={startIntro} onEnd={() => setStartIntro(false)} />
-					{!gameover && <Gameplay net={net} />}
-					{gameover && !startIntro && <Gameover score={score} />}
-					{/* <Gameplay net={net} /> */}
+					{/* <Intro startIntro={startIntro} onEnd={() => setStartIntro(false)} /> */}
+					{/* {!gameover && <Gameplay net={net} />} */}
+					{/* {gameover && !startIntro && <Gameover score={score} />} */}
+					<Gameplay net={net} />
 				</div>
 			)}
 		</div>

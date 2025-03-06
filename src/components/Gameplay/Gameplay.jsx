@@ -67,7 +67,7 @@ const Gameplay = ({ net = {} }) => {
 		<div id='gameplay'>
 			<Instructions handVisible={handVisible} />
 			<ScoreLives score={score} lives={lives} />
-			<Handposes
+			{/* <Handposes
 				currentHandpose={currentHandpose}
 				setCurrentHandpose={setCurrentHandpose}
 				isCorrectHandpose={isCorrectHandpose}
@@ -75,7 +75,7 @@ const Gameplay = ({ net = {} }) => {
 				handVisible={handVisible}
 				duration={duration}
 				handleTimeover={handleTimeover}
-			/>
+			/> */}
 			<Hands3d
 				net={net}
 				shouldDetect={shouldDetect}

@@ -15,7 +15,7 @@ const Gameover = ({ score = 0 }) => {
 	}, []);
 	return (
 		<div id='gameover' className='appear1'>
-			<p>Game Over</p>
+			<p className='gameover-text'>Game Over</p>
 			<div
 				className='score'
 				title={`Score : ${score}`}
