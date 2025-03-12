@@ -43,7 +43,7 @@ const Handposes = ({
 		setTimeout(() => {
 			setIsTimerRunning(true);
 			dispatch(startDetect());
-		}, 1500); // 2000 is the climing time of the handpose circle
+		}, 1500); // 1500 is the climing time of the handpose circle
 	};
 
 	useEffect(() => {

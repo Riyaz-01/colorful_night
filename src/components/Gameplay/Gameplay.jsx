@@ -16,6 +16,7 @@ import Handposes from '../Handposes/Handposes.jsx';
 import Hands3d from '../Hands3d/Hands3d.jsx';
 import Gameover from '../Gameover/Gameover.jsx';
 import ScoreLives from '../ScoreLives/ScoreLives.jsx';
+import Fireworks from '../Fireworks/Fireworks.jsx';
 
 const Gameplay = ({ net = {} }) => {
 	const duration = 2;
@@ -24,6 +25,7 @@ const Gameplay = ({ net = {} }) => {
 	const [currentHandpose, setCurrentHandpose] = useState(() => false);
 	const [isCorrectHandpose, setIsCorrectHandpose] = useState(false);
 	const shouldDetect = useSelector((state) => state.shouldDetect.value);
+	const [showFireworks, setShowFireworks] = useState(false);
 
 	const score = useSelector((state) => state.score.value);
 	const lives = useSelector((state) => state.lives.value);
@@ -38,6 +40,7 @@ const Gameplay = ({ net = {} }) => {
 
 		dispatch(stopDetect());
 		setIsCorrectHandpose(true);
+		setShowFireworks(true);
 		successAudioRef.current.play();
 		dispatch(increaseScore());
 
@@ -63,11 +66,24 @@ const Gameplay = ({ net = {} }) => {
 		}
 	}, [lives]);
 
+	// Handle event when fireworks duration ends
+	useEffect(() => {
+		const handleFireworksEnd = () => {
+			setShowFireworks(false);
+		};
+
+		window.addEventListener('fireworksEnd', handleFireworksEnd);
+
+		return () => {
+			window.removeEventListener('fireworksEnd', handleFireworksEnd);
+		};
+	}, []);
+
 	return (
 		<div id='gameplay'>
 			<Instructions handVisible={handVisible} />
 			<ScoreLives score={score} lives={lives} />
-			{/* <Handposes
+			<Handposes
 				currentHandpose={currentHandpose}
 				setCurrentHandpose={setCurrentHandpose}
 				isCorrectHandpose={isCorrectHandpose}
@@ -75,7 +91,7 @@ const Gameplay = ({ net = {} }) => {
 				handVisible={handVisible}
 				duration={duration}
 				handleTimeover={handleTimeover}
-			/> */}
+			/>
 			<Hands3d
 				net={net}
 				shouldDetect={shouldDetect}
@@ -83,7 +99,7 @@ const Gameplay = ({ net = {} }) => {
 				handlehHandposeDetected={handlehHandposeDetected}
 				setHandVisible={setHandVisible}
 			/>
-
+			<Fireworks showFireworks={showFireworks} />
 			<audio src={detectSuccessAudio} ref={successAudioRef} id='error' />
 		</div>
 	);
