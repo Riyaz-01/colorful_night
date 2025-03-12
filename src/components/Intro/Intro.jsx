@@ -21,10 +21,25 @@ const Intro = ({ onEnd = () => {} }) => {
 	const gameover = useSelector((state) => state.gameover.value);
 	const dispatch = useDispatch();
 
+	const handleWebCamAccess = () => {
+		navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then(() => {
+				console.log('Webcam access granted');
+			})
+			.catch((error) => {
+				console.error('Webcam access denied:', error);
+				alert(
+					'This game requires webcam access for motion detection. Please allow access in your browser settings.'
+				);
+			});
+	};
+
 	const handleClick1 = () => {
 		setShowDesc(false);
 		setShowTutVid(true);
 		setIsPlaying(true);
+		handleWebCamAccess();
 	};
 
 	const handleClick2 = () => {
