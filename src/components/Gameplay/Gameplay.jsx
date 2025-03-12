@@ -99,7 +99,10 @@ const Gameplay = ({ net = {} }) => {
 				handlehHandposeDetected={handlehHandposeDetected}
 				setHandVisible={setHandVisible}
 			/>
-			<Fireworks showFireworks={showFireworks} />
+			<Fireworks
+				showFireworks={showFireworks}
+				soundPath='/sounds/fireworks.mp3'
+			/>
 			<audio src={detectSuccessAudio} ref={successAudioRef} id='error' />
 		</div>
 	);

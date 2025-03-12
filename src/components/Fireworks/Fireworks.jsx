@@ -3,17 +3,23 @@ import './Fireworks.scss';
 
 const Fireworks = ({
 	showFireworks = false,
-	duration = 600,
+	duration = 800,
 	minRadius = 2,
 	maxRadius = 4,
 	volume = 0.7, // Volume control (0-1)
-	soundPath = '/sounds/fireworks.mp3', // Path to your single firework sound file
+	soundPath = '/firework-pop.mp3', // Path to your single firework sound file
 }) => {
 	const canvasRef = useRef(null);
 	const particlesRef = useRef([]);
 	const requestIdRef = useRef(null);
 	const timerRef = useRef(null);
 	const audioRef = useRef(null);
+	const volumeRef = useRef(volume);
+
+	// Update volume ref when prop changes
+	useEffect(() => {
+		volumeRef.current = volume;
+	}, [volume]);
 
 	// Initialize audio element once
 	useEffect(() => {
@@ -39,6 +45,9 @@ const Fireworks = ({
 
 		// Clone the audio element to allow multiple simultaneous plays
 		const soundClone = audioRef.current.cloneNode();
+
+		// Set the volume from the current volume ref (not the original audio)
+		soundClone.volume = volumeRef.current;
 
 		// Play the sound
 		soundClone.play().catch((error) => {
