@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Intro.scss';
 
 // assets
-import tutorialVid from '../../assets/tutorial.mov';
+import tutorialVid from '../../assets/tutorial.mp4';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
