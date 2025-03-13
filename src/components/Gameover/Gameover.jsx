@@ -20,7 +20,7 @@ const Gameover = ({ score = 0 }) => {
 				className='score'
 				title={`Score : ${score}`}
 			>{`Score : ${score}`}</div>
-			<NameInput />
+			{/* <NameInput /> */}
 			<audio src={gameoverAudio} ref={gameoverAudioRef} id='gameover' />
 		</div>
 	);
