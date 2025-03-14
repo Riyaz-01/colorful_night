@@ -17,9 +17,9 @@
 		&::after {
 			content: '';
 			position: absolute;
-			top: 4px;
-			width: 220px; // Larger than SVG for glow overflow
-			height: 220px;
+			top: 14px;
+			width: 200px; // Larger than SVG for glow overflow
+			height: 200px;
 			border-radius: 50%;
 			border: 5px solid transparent; // Thicker border for stronger glow
 			animation: successGlow 1.2s ease-in-out 2; // Sync with glitch

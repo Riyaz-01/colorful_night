@@ -1,0 +1,71 @@
+.stream-button {
+	padding: 10px 20px;
+	font-size: 14px;
+	font-family: Inter;
+	color: white;
+	background: transparent; // Cyan background
+	border: 1px solid white; // Default static border
+	border-radius: 0; // Sharp edges
+	letter-spacing: 1px;
+	cursor: pointer;
+
+	// Static state (no animation)
+	&:not(:hover) {
+		border-image: none;
+	}
+
+	// Hover state with streaming border animation
+	&:hover {
+		background: transparent;
+		color: #00ffff;
+		border: 2px solid; // Thin border for animation
+		border-image: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff0000) 1; // Gradient border image
+		border-image-slice: 1; // Ensure gradient fills border
+		animation: border-stream-button 3s linear infinite; // Same animation as NameInput
+	}
+
+	// Active effect
+	&:active {
+		transform: scale(0.95);
+	}
+}
+
+// Gradient border animation (matches NameInput)
+@keyframes border-stream-button {
+	0% {
+		border-image-source: linear-gradient(
+			90deg,
+			#ff0000,
+			#00ff00,
+			#0000ff,
+			#ff0000
+		);
+	}
+	33% {
+		border-image-source: linear-gradient(
+			90deg,
+			#00ff00,
+			#0000ff,
+			#ff0000,
+			#00ff00
+		);
+	}
+	66% {
+		border-image-source: linear-gradient(
+			90deg,
+			#0000ff,
+			#ff0000,
+			#00ff00,
+			#0000ff
+		);
+	}
+	100% {
+		border-image-source: linear-gradient(
+			90deg,
+			#ff0000,
+			#00ff00,
+			#0000ff,
+			#ff0000
+		);
+	}
+}

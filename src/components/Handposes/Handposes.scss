@@ -1,4 +1,4 @@
-$climb-time: 2s;
+$climb-time: 1.5s;
 $fit-time: 300ms;
 
 #handposes {
@@ -13,7 +13,7 @@ $fit-time: 300ms;
 	#handpose {
 		position: absolute;
 
-		font-size: 70px;
+		font-size: 65px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -48,6 +48,6 @@ $fit-time: 300ms;
 		r: 60;
 	}
 	100% {
-		r: 98;
+		r: 89;
 	}
 }

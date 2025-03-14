@@ -7,36 +7,38 @@ import './App.scss';
 import * as handPoseDetection from '@tensorflow-models/handpose';
 import '@tensorflow/tfjs-backend-webgl';
 
+// redux
+import { useSelector } from 'react-redux';
+
 // components
 import Stars from './components/Stars/Stars.jsx';
 import Loader from './components/Loader/Loader.jsx';
 import Intro from './components/Intro/Intro.jsx';
 import Gameplay from './components/Gameplay/Gameplay.jsx';
-import Handposes from './components/Handposes/Handposes.jsx';
-import Stopwatch from './components/Stopwatch/Stopwatch.jsx';
+import Gameover from './components/Gameover/Gameover.jsx';
 
 function App() {
 	const [loading, setLoading] = useState(false);
-
-	const [showCanvas, setShowCanvas] = useState(false);
 	const [net, setNet] = useState(null);
+	const [startIntro, setStartIntro] = useState(true);
 
-	const startGame = () => {
-		setShowCanvas(true);
-	};
+	const gameover = useSelector((state) => state.gameover.value);
+	const score = useSelector((state) => state.score.value);
 
 	const runHandPose = async () => {
-		setLoading(true);
-		console.log('handpose model is loading...');
-		const net = await handPoseDetection.load();
-		console.log('handpose model loaded');
-		setLoading(false);
-		setNet(net);
+		try {
+			setLoading(true);
+			const loadedNet = await handPoseDetection.load();
+			setNet(loadedNet);
+		} catch (error) {
+			console.error('Failed to load handpose model:', error);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
 		runHandPose();
-		// startGame(); // starting for testing
 	}, []);
 
 	return (
@@ -45,9 +47,11 @@ function App() {
 				<Loader />
 			) : (
 				<div id='main'>
-					<Stars />
-					<Intro startGame={startGame} />
-					{showCanvas && <Gameplay net={net} />}
+					<Stars numberOfStars={30} minSize={1} maxSize={3} />
+					<Intro startIntro={startIntro} onEnd={() => setStartIntro(false)} />
+					{!gameover && <Gameplay net={net} />}
+					{gameover && !startIntro && <Gameover score={score} />}
+					{/* <Gameplay net={net} /> */}
 				</div>
 			)}
 		</div>

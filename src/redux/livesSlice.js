@@ -7,6 +7,7 @@ const livesSlice = createSlice({
 	initialState,
 	reducers: {
 		decreaseLives(state) {
+			if (state.value == 0) return;
 			state.value--;
 		},
 		resetLives(state) {

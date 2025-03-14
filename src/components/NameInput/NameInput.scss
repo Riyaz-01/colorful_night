@@ -1,0 +1,83 @@
+.name-input-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px; // Space between input group and button
+	padding: 20px;
+}
+
+.input-group {
+	display: flex;
+	gap: 10px; // Space between input boxes
+}
+
+.name-input {
+	width: 50px; // Rectangular width
+	height: 60px; // Taller rectangular height
+	text-align: center;
+	font-size: 18px;
+	font-family: gridular; // Retro digital feel
+	color: white; // Cyan text
+	background: rgba(42, 50, 92, 0.8); // Semi-transparent #2A325C
+	border: 2px solid; // Thin border for animation
+	border-image: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff0000) 1; // Gradient border image
+	border-image-slice: 1; // Ensure gradient fills border
+	border-radius: 0; // Sharp edges
+	outline: none;
+	text-transform: uppercase;
+	animation: border-stream 3s linear infinite; // Continuous gradient loop
+
+	// Focus effect (just a glow)
+	&:focus {
+		box-shadow: 0 0 5px #ffffff; // White glow
+	}
+
+	// Remove default browser styles
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	-moz-appearance: textfield;
+}
+
+// Gradient border animation
+@keyframes border-stream {
+	0% {
+		border-image-source: linear-gradient(
+			45deg,
+			#ff0000,
+			#00ff00,
+			#0000ff,
+			#ff0000
+		);
+	}
+	33% {
+		border-image-source: linear-gradient(
+			45deg,
+			#00ff00,
+			#0000ff,
+			#ff0000,
+			#00ff00
+		);
+	}
+	66% {
+		border-image-source: linear-gradient(
+			45deg,
+			#0000ff,
+			#ff0000,
+			#00ff00,
+			#0000ff
+		);
+	}
+	100% {
+		border-image-source: linear-gradient(
+			45deg,
+			#ff0000,
+			#00ff00,
+			#0000ff,
+			#ff0000
+		);
+	}
+}

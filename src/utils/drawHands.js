@@ -30,19 +30,11 @@ export const drawhands = (canvas, hands) => {
 	ctx.strokeStyle = 'cyan';
 	ctx.fillStyle = 'cyan'; // Added for joints visibility
 	ctx.lineCap = 'round';
-	ctx.lineWidth = 2;
+	ctx.lineWidth = 28;
 
 	if (!hands || hands.length === 0) return;
 
 	hands.forEach((hand) => {
-		// Draw joints
-		hand.landmarks.forEach((point) => {
-			ctx.beginPath();
-			const [x, y] = point;
-			ctx.arc(x, y, 5, 0, 2 * Math.PI);
-			ctx.fill(); // Ensure joints are filled
-		});
-
 		// Draw connections
 		connections.forEach((connection) => {
 			const [x1, y1] = hand.landmarks[connection[0]];
